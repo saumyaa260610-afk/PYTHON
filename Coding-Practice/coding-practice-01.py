@@ -63,13 +63,13 @@ stop=int(input("enter stop number:"))
 for number in range(start,stop+1):
     if number<0:
         pass
-     n=len(str(number))
-            original=number
-    else:
-        while number!=0:
-            last_digit=number%10
-            count+=(last_digit)**n
-            number=number//10
+    n=len(str(number))
+    original=number
+    count=0
+    while number!=0:
+        last_digit=number%10
+        count+=(last_digit)**n
+        number=number//10
 
-        if count==original:
-            print(original)
+    if count==original:
+        print(original)
