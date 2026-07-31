@@ -3,3 +3,4 @@ from member import Member
 from student import Student
 from faculty import Faculty
 from librarian import Librarian
+from library import Library
