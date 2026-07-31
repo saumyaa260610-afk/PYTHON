@@ -1,4 +1,7 @@
-from book import Book
+from book import Book 
+from student import Student 
+from faculty import Faculty
+from librarian import Librarian
 class Library:
     def __init__(self):
         self.books={}
