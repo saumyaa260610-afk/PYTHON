@@ -108,3 +108,36 @@ class Library:
             book.reserved_by=user_id
             member.reserved_books.append(book_id)
             print("Book reserved successfully")
+
+        def add_member(self,role,name,password):
+            if role.lower()=="student":
+                self.student_count+=1
+                user_id = self.student_count
+                member = Student(user_id, name, password)
+            elif role.lower()=="faculty":
+                self.faculty_count+=1
+                user_id = self.faculty_count
+                member = Faculty(user_id, name, password)
+            elif role.lower()=="librarian":
+                self.librarian_count+=1
+                user_id=self.librarian_count
+                member=Librarian(user_id, name, password)
+            else:
+                print("Invalid role")
+                return
+            self.members[user_id]=member
+            print("Member added successfully")
+
+        def remove_member(self,user_id):
+            if user_id not in self.members:
+                print("Member not found")
+            else:
+                del self.members[user_id]
+                print("Member removed successfully")
+    
+        def search_member(self,user_id):
+            if user_id in self.members:
+                member=self.members[user_id]
+                member.details()
+            else:
+                print("Member not found")
