@@ -151,7 +151,7 @@ class Library:
             else:
                 print("Fine:",member.fine)
                 print("Fine paid")
-                member.fine = 0
+                member.fine=0
         else:
             print("No fine")
             
