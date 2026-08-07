@@ -143,14 +143,14 @@ class Library:
             else:
                 print("Member not found")
 
-        def save(self):
-            all_data={}
-            all_data["books"]={}
-            all_data["members"]={}
-            for book_id,book in self.books.items():
-                all_data["books"][book_id] = {"title":book.title,"author":book.author,"year":book.year,"status":book.status,"borrowed_by":book.borrowed_by,"borrow_date":book.borrow_date,"return_by":book.return_by,"reserved_by": book.reserved_by}
-            for user_id,member in self.members.items():
-                all_data["members"][user_id]={"name":member.name,"password":member.password,"borrowed_books":member.borrowed_books,"reserved_books":member.reserved_books}
-            with open("library.json", "w") as f:
-                json.dump(all_data,f,indent=4)
-                print("Data saved")
+       def pay_fine(self, user_id):
+        member=self.members[user_id]
+        if member.role=="Student":
+            if member.fine==0:
+                print("No fine")
+            else:
+                print("Fine:",member.fine)
+                print("Fine paid")
+                member.fine = 0
+        else:
+            print("No fine")
