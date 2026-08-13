@@ -18,6 +18,7 @@ class Library:
             member=self.members[user_id]
             if member.password==password:
                 print("Login Successful")
+                return member
             else:
                 print("Incorrect Password")
         else:
