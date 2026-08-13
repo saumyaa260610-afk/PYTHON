@@ -90,9 +90,6 @@ class Library:
             print("Book returned successfully")
     
         def reserve_book(self,user_id,book_id):
-            if user_id not in self.members:
-                print("Member not found")
-                return
             if book_id not in self.books:
                 print("Book not found")
                 return
