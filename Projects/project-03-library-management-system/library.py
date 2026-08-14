@@ -137,16 +137,16 @@ class Library:
             print("Member not found")
 
    def pay_fine(self, user_id):
-    member=self.members[user_id]
-    if member.role=="Student":
-        if member.fine==0:
-            print("No fine")
+        member=self.members[user_id]
+        if member.role=="Student":
+            if member.fine==0:
+                print("No fine")
+            else:
+                print("Fine:",member.fine)
+                print("Fine paid")
+                member.fine=0
         else:
-            print("Fine:",member.fine)
-            print("Fine paid")
-            member.fine=0
-    else:
-        print("No fine")
+            print("No fine")
         
     def save(self):
         all_data={}
