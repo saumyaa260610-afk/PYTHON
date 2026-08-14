@@ -52,7 +52,7 @@ class Library:
     def search_book_title(self,title):
        if title.lower() in self.book_titles:
             print(self.book_titles[title.lower()])
-        else:
+       else:
             print("Book not found.")
 
     def display_books(self):
