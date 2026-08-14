@@ -1,4 +1,8 @@
 from library import Library
+inputs=[]
+def parser(text):
+    inputs.extend(text.split())
+    
 library=Library()
 library.load()
 while True:
@@ -6,9 +10,12 @@ while True:
     1.Login
     2.Exit''')
     choice=int(input("Enter choice:"))
+    parser(choice)
     if choice==1:
         user_id=input("Enter User ID:")
         password=input("Enter Password:")
+        parser(user_id)
+        parser(password)
         member=library.login(user_id,password)
         
         if member.role=="Student" or member.role=="Faculty":
@@ -20,22 +27,29 @@ while True:
             5.Account Summary
             6.Logout''')
             choice=int(input("Enter choice:"))
+            parser(choice)
             if choice==1:
                 book_id=int(input("Enter Book ID:"))
+                parser(book_id)
                 library.borrow_book(user_id,book_id)
             elif choice==2:
                 book_id=int(input("Enter Book ID:"))
+                parser(book_id)
                 library.return_book(user_id,book_id)
             elif choice==3:
                 book_id=int(input("Enter Book ID:"))
+                parser(book_id)
                 library.reserve_book(user_id,book_id)
             elif choice==4:
                 choice=int(input("Would you like to search by: \n 1.ID or \n 2.Title ?"))
+                parser(choice)
                 if choice==1:
                     book_id=int(input("Enter Book ID:"))
+                    parser(book_id)
                     library.search_book_id(book_id)
                 elif choice==2:
                     title=input("Enter book title:")
+                    parser(title)
                     library.search_book_title(title)
             elif choice==5:
                 member.account_summary()
