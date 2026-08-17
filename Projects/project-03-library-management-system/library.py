@@ -140,11 +140,18 @@ class Library:
         member=self.members[user_id]
         if member.role=="Student":
             if member.fine==0:
-                print("No fine")
+                print("No fine to be paid")
             else:
-                print("Fine:",member.fine)
-                print("Fine paid")
-                member.fine=0
+                print("fine:",member.fine)
+                payment=float(input("Enter amount to pay:"))
+                if payment>member.fine:
+                    print("Payment amount is greater than fine.")
+                elif payment<member.fine:
+                    member.fine-=payment
+                    print("Remaining fine:",member.fine)
+                else:
+                    print("Complete fine paid")
+                    member.fine=0
         else:
             print("No fine")
         
