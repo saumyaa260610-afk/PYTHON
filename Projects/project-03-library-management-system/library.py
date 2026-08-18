@@ -10,9 +10,7 @@ class Library:
         self.members={}
         self.book_titles={}
         self.book_count=100
-        self.student_count=100
-        self.faculty_count=100
-        self.librarian_count=100
+        self.member_count=100
 
     def login(self,user_id,password):
         if user_id in self.members:
@@ -115,23 +113,19 @@ class Library:
         print("Book reserved successfully")
 
     def add_member(self,role,name,password):
+        self.member_count+=1
+        user_id=self.member_count
         if role.lower()=="student":
-            self.student_count+=1
-            user_id = self.student_count
-            member = Student(user_id, name, password)
+            member=Student(user_id,name,password)
         elif role.lower()=="faculty":
-            self.faculty_count+=1
-            user_id = self.faculty_count
-            member = Faculty(user_id, name, password)
+            member=Faculty(user_id,name,password)
         elif role.lower()=="librarian":
-            self.librarian_count+=1
-            user_id=self.librarian_count
-            member=Librarian(user_id, name, password)
+            member=Librarian(user_id,name,password)
         else:
             print("Invalid role")
             return
         self.members[user_id]=member
-        print("Member added successfully")
+        print("Member added")
 
     def remove_member(self,user_id):
         if user_id not in self.members:
@@ -203,4 +197,8 @@ class Library:
             member.reserved_books=member_data["reserved_books"]
             member.fine=member_data["fine"]
             self.members[user_id]=member
+        if self.members:
+            self.member_count=max(self.members.keys())
+        if self.books:
+            self.book_count=max(self.books.keys())
         print("Data loaded")
