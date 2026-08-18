@@ -141,7 +141,7 @@ class Library:
         else:
             print("Member not found")
 
-   def pay_fine(self, user_id):
+    def pay_fine(self, user_id):
         member=self.members[user_id]
         if member.role=="Student":
             if member.fine==0:
