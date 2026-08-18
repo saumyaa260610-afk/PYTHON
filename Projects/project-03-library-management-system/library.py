@@ -3,6 +3,7 @@ from student import Student
 from faculty import Faculty
 from librarian import Librarian
 import json 
+from datetime import date,timedelta
 class Library:
     def __init__(self):
         self.books={}
@@ -74,6 +75,8 @@ class Library:
             member.borrowed_books.append(book_id)
             book.status="Borrowed"
             book.borrowed_by=user_id
+            book.borrow_date=date.today()
+            book.return_by=date.today()+timedelta(days=member.loan_days)
             print("Book borrowed successfully")
             
     def return_book(self,user_id,book_id):
@@ -85,9 +88,17 @@ class Library:
         if book_id not in member.borrowed_books:
             print("This book was not borrowed")
             return
+        today=date.today()
+        if today>book.return_by and member.role=="Student":
+            extra_days=(today-book.return_by).days
+            fine=extra_days*member.fine_each_day
+            member.fine+=fine
+            print("Book returned late.Fine:",fine)
         member.borrowed_books.remove(book_id)
         book.status="Available"
         book.borrowed_by=""
+        book.borrow_date=""
+        book.return_by=""
         print("Book returned successfully")
 
     def reserve_book(self,user_id,book_id):
