@@ -68,12 +68,12 @@ if member!=None:
                     library.search_book_title(title)
             elif choice==8:
                 print("Logged Out")
-    elif choice==2:
-        print("Exited the Library")
-    else:
-        print("Invalid choice")
+        elif choice==2:
+            print("Exited the Library")
+        else:
+            print("Invalid choice")
     
-    cont=input("Would you like to continue? (yes or no) \n")
-    if cont.lower()=="no":
-        library.save()
-        break
+        cont=input("Would you like to continue? (yes or no) \n")
+        if cont.lower()=="no":
+            library.save()
+            break
