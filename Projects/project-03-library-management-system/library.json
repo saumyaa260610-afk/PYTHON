@@ -1,0 +1,37 @@
+{
+    "books": {},
+    "members": {
+        "101": {
+            "name": "saumyaa",
+            "password": "1234",
+            "role": "Librarian",
+            "borrowed_books": [],
+            "reserved_books": [],
+            "fine": 0
+        },
+        "102": {
+            "name": "Tom",
+            "password": "5678",
+            "role": "Student",
+            "borrowed_books": [],
+            "reserved_books": [],
+            "fine": 0
+        },
+        "103": {
+            "name": "Riya",
+            "password": "9101112",
+            "role": "Faculty",
+            "borrowed_books": [],
+            "reserved_books": [],
+            "fine": 0
+        },
+        "104": {
+            "name": "nisha",
+            "password": "13141516",
+            "role": "Student",
+            "borrowed_books": [],
+            "reserved_books": [],
+            "fine": 0
+        }
+    }
+}
