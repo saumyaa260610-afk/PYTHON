@@ -14,9 +14,9 @@ class linked_list:
         if self.head is None:
             self.head=new_node
             self.tail=new_node
-            return
-        self.tail.next=new_node
-        self.tail=new_node
+        else:
+            self.tail.next=new_node
+            self.tail=new_node
         
     def find(self,key):
         curr=self.head
