@@ -25,3 +25,26 @@ class linked_list:
                 return curr.value
             curr=curr.next
         return None
+
+    def returnhead(self):
+        return self.head
+    
+    def DeleteNode(self,k):
+        if self.head is None:
+            return
+        if self.head.key==k:
+            self.head=self.head.next
+            return
+        temp=self.head
+        while temp.next is not None:
+            if temp.next.key==k:
+                temp.next=temp.next.next
+                return
+            temp=temp.next
+            
+    def print_first_k_keys(self,k):
+        temp=self.head
+        while k>0 and temp is not None:
+            print(temp.key)
+            temp=temp.next
+            k-=1
