@@ -6,8 +6,12 @@ from langchain_core.prompts import PromptTemplate
 from transformers import pipeline
 from langchain_core.runnables import RunnableParallel,RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+
+def get_video_id(url):
+    return url.split("v=")[1]
+youtube_url=input("Enter YouTube URL: ")
+video_id=get_video_id(youtube_url)
 #indexing
-video_id="LPZh9BOjkQs"
 try:
     api=YouTubeTranscriptApi()
     transcript_list=api.fetch(video_id,languages=["en"])
