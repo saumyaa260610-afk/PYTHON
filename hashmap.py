@@ -6,7 +6,7 @@ class HashMap:
         self.bucketSize=self.initial_bucket_size
         self.n_of_elements=0
         self.buckets=[LinkedList() for _ in range(self.bucketSize)]
-    def hashKey(self,key):
+    def __hashKey(self,key):
         if isinstance(key,str):
             hash_value=5381
             for c in key:
@@ -19,10 +19,10 @@ class HashMap:
             return hash_value
         else:
             raise TypeError("Unsupported key type")
-    def compress(self,hash_value):
+    def __compress(self,hash_value):
         return hash_value%self.bucketSize
     def __getitem__(self,key):
-        index=self.compress(self.hashKey(key))
+        index=self.__compress(self.__hashKey(key))
         node=self.buckets[index].findNode(key)
         if node is not None:
             return node.val
@@ -34,7 +34,7 @@ class HashMap:
             for chain in old_buckets:
                 temp=chain.returnhead()
                 while temp is not None:
-                    newidx=self.compress(self.hashKey(temp.key))
+                    newidx=self.__compress(self.__hashKey(temp.key))
                     self.buckets[newidx].addHead(temp.key,temp.val)
                     self.n_of_elements+=1
                     temp=temp.next
@@ -42,7 +42,7 @@ class HashMap:
         self.n_of_elements+=1
         return self.buckets[index].findNode(key).val
     def erase(self,key):
-        index=self.compress(self.hashKey(key))
+        index=self.__compress(self.__hashKey(key))
         self.buckets[index].DeleteNode(key)
     def getAll(self):
         all_items=[]
