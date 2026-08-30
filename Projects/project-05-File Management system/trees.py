@@ -24,3 +24,34 @@ class Tree:
         self.next_version_id+=1
         self.version_count+=1
         return new_version
+
+    def insert(self,content):
+        if self.active.is_snapshot:
+            return self.add_version(self.active.content+content)
+        else:
+            self.active.content+=content
+            return self.active
+
+    def update(self,content):
+        if self.active.is_snapshot:
+            return self.add_version(content)
+        else:
+            self.active.content=content
+            return self.active
+
+    def rollback(self,version=None):
+    if version is None:
+        if self.active.parent is None:
+            return False
+        self.active=self.active.parent
+    else:
+        self.active=version
+    return True
+    
+    def snapshot(self,message,timestamp):
+        if self.active.is_snapshot:
+            return False
+        self.active.is_snapshot=True
+        self.active.snapshot_message=message
+        self.active.snapshot_timestamp=timestamp
+        return True
