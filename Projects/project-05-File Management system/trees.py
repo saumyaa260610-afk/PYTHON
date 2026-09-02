@@ -56,3 +56,14 @@ class Tree:
         self.active.snapshot_message=message
         self.active.snapshot_timestamp=timestamp
         return True
+
+    def history(self):
+        stack=stack()
+        current=self.active
+        while current is not None:
+            if current.is_snapshot:
+                stack.push(current)
+            current=current.parent
+        while stack.is_empty()==False:
+            version=stack.pop()
+            print(version.version_id,version.snapshot_timestamp,version.snapshot_message)
