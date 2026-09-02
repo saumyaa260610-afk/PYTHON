@@ -17,4 +17,6 @@ class stack:
         self.top=self.top.next
         return value
     def is_empty(self):
-        return self.top is None
+        if self.top is None:
+            return True 
+        return False
