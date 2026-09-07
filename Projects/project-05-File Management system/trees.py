@@ -17,27 +17,31 @@ class Tree:
         self.active=self.root
         self.version_count=1
         self.next_version_id=1
+        self.last_modified=0
         
-    def add_version(self,content):
+    def add_version(self,content,time):
         new_version=TreeNode(self.next_version_id,content,self.active)
         self.active.children.add(new_version.version_id,new_version)
         self.active=new_version
         self.next_version_id+=1
         self.version_count+=1
+        self.last_modified=time
         return new_version
 
-    def insert(self,content):
+    def insert(self,content,time):
         if self.active.is_snapshot:
             return self.add_version(self.active.content+content)
         else:
             self.active.content+=content
+            self.last_modified=time
             return self.active
 
-    def update(self,content):
+    def update(self,content,time):
         if self.active.is_snapshot:
             return self.add_version(content)
         else:
             self.active.content=content
+            self.last_modified=time
             return self.active
 
     def rollback(self,version=None):
@@ -49,12 +53,12 @@ class Tree:
         self.active=version
     return True
     
-    def snapshot(self,message,timestamp):
+    def snapshot(self,message,time):
         if self.active.is_snapshot:
             return False
         self.active.is_snapshot=True
         self.active.snapshot_message=message
-        self.active.snapshot_timestamp=timestamp
+        self.active.snapshot_timestamp=time
         return True
 
     def history(self):
