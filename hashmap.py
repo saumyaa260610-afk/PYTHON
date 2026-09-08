@@ -63,6 +63,6 @@ class HashMap:
         for ll in self.buckets:
             temp=ll.head
             while temp is not None:
-                all_items.append((temp.key,temp.val))
+                all_items.append((temp.key,temp.value))
                 temp=temp.next
         return all_items
