@@ -45,13 +45,13 @@ class Tree:
             return self.active
 
     def rollback(self,version=None):
-    if version is None:
-        if self.active.parent is None:
-            return False
-        self.active=self.active.parent
-    else:
-        self.active=version
-    return True
+        if version is None:
+            if self.active.parent is None:
+                return False
+            self.active=self.active.parent
+        else:
+            self.active=version
+        return True
     
     def snapshot(self,message,time):
         if self.active.is_snapshot:
