@@ -30,7 +30,7 @@ class Tree:
 
     def insert(self,content,time):
         if self.active.is_snapshot:
-            return self.add_version(self.active.content+content)
+            return self.add_version(self.active.content+content,time)
         else:
             self.active.content+=content
             self.last_modified=time
@@ -38,7 +38,7 @@ class Tree:
 
     def update(self,content,time):
         if self.active.is_snapshot:
-            return self.add_version(content)
+            return self.add_version(content,time)
         else:
             self.active.content=content
             self.last_modified=time
