@@ -1,6 +1,7 @@
 import heapq
 from Stack import stack
 from hashmap import HashMap
+from trees import Tree
 
 def recentfiles(files,num):
     heap=[]
@@ -30,7 +31,7 @@ def biggesttrees(files,num):
 
 #main prgrm
 files=HashMap()
-print("Welcome")
+print("FILE MANAGEMENT SYSTEM")
 while True:
     print('''
     MENU
@@ -44,6 +45,29 @@ while True:
 8. RECENTFILES
 9. BIGGESTTREES
 10. EXIT ''')
-    choice=int(input("Enter choice:"))
-   
+    
+    choice=int(input("Enter your choice:"))
+    if choice==1:
+        filename=input("Enter file name:")
+        if files[filename]="Key does not exist" :
+            tree=Tree()
+            files.insert(filename,tree)
+        print("Error:file aldredy exists")
         
+    elif choice=2:
+        filename=input("Enter file name:")
+        tree=files[filename]
+        if tree=="Key does not exist":
+            print("Error:file does not exist")
+        else:
+            print(tree.active.content)
+            
+    elif choice=="3":
+        filename=input("Enter file name:")
+        tree=files[filename]
+        if tree=="Key does not exist":
+            print("Error:file does not exist")
+        else:
+            content=input("Enter content to insert:")
+            timestamp=int(datetime.now().timestamp())
+            tree.insert(content,timestamp)
