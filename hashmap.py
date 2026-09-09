@@ -26,9 +26,9 @@ class HashMap:
    
     def __getitem__(self,key):
         index=self.__compress(self.__hashKey(key))
-        node=self.buckets[index].findNode(key)
+        node=self.buckets[index].find(key)
         if node is not None:
-            return node.val
+            return node.value
         else:
             return "Key does not exist"
 
