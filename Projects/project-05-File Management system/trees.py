@@ -1,4 +1,4 @@
-from linkedlist import LinkedList
+from linkedlist import linked_list
 class TreeNode:
     def __init__(self,version_id,content,parent=None):
         self.version_id=version_id
