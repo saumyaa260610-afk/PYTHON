@@ -25,6 +25,7 @@ class Tree:
     def add_version(self,content,time):
         new_version=TreeNode(self.next_version_id,content,self.active)
         self.active.children.add(new_version.version_id,new_version)
+        self.versions.insert(new_version.version_id,new_version)
         self.active=new_version
         self.next_version_id+=1
         self.version_count+=1
