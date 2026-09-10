@@ -49,12 +49,13 @@ while True:
     choice=int(input("Enter your choice:"))
     if choice==1:
         filename=input("Enter file name:")
-        if files[filename]="Key does not exist" :
+        if files[filename]=="Key does not exist":
             tree=Tree()
             files.insert(filename,tree)
-        print("Error:file aldredy exists")
+        else:
+            print("Error:file aldredy exists")
         
-    elif choice=2:
+    elif choice==2:
         filename=input("Enter file name:")
         tree=files[filename]
         if tree=="Key does not exist":
@@ -62,7 +63,7 @@ while True:
         else:
             print(tree.active.content)
             
-    elif choice=="3":
+    elif choice==3:
         filename=input("Enter file name:")
         tree=files[filename]
         if tree=="Key does not exist":
@@ -71,3 +72,71 @@ while True:
             content=input("Enter content to insert:")
             timestamp=int(datetime.now().timestamp())
             tree.insert(content,timestamp)
+
+    elif choice == 4:
+    filename=input("Enter file name:")
+    tree=files[filename]
+    if tree=="Key does not exist":
+        print("Error:file does not exist")
+    else:
+        content=input("Enter new content:")
+        timestamp=int(datetime.now().timestamp())
+        tree.update(content,timestamp)
+
+    elif choice==5:
+        filename=input("Enter file name:")
+        tree=files[filename]
+        if tree=="Key does not exist":
+            print("Error:file does not exist")
+        else:
+            message=input("Enter snapshot message:")
+            timestamp=int(datetime.now().timestamp())
+            tree.snapshot(message,timestamp)
+    
+    elif choice==6:
+       filename=input("Enter file name:")
+       tree=files[filename]
+       if tree=="Key does not exist":
+            print("Error:file does not exist")
+       else:
+            version=input("Enter version ID (If you want one-step rollback,press enter):")
+            if version=="":
+                if tree.rollback():
+                    print("Rollback successful")
+                else:
+                    print("Error:Already at root version")
+            else:
+                version=int(version)
+                version_node=tree.versions[version]
+                if version_node=="Key does not exist":
+                    print("Error:Version does not exist")
+                else:
+                    tree.rollback(version_node)
+                    print("Rollback successful")
+    
+    elif choice==7:
+        filename=input("Enter file name:")
+        tree=files[filename]
+        if tree=="Key does not exist":
+            print("Error:file does not exist")
+        else:
+            tree.history()
+    
+    elif choice==8:
+        num=int(input("Enter number of files:"))
+        recentfiles(files,num)
+    
+    elif choice==9:
+        num=int(input("Enter number of files:"))
+        biggesttrees(files,num)
+    
+    elif choice==10:
+        print("Exiting...")
+        break
+    
+    else:
+        print("Invalid choice")
+
+    cont=input("Would you like to continue? (yes or no):").lower()
+    if cont=="no":
+        break
