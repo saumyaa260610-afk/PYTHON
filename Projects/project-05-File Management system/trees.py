@@ -1,4 +1,5 @@
 from linkedlist import linked_list
+from Stack import stack
 class TreeNode:
     def __init__(self,version_id,content,parent=None):
         self.version_id=version_id
@@ -18,6 +19,8 @@ class Tree:
         self.version_count=1
         self.next_version_id=1
         self.last_modified=0
+        self.versions=HashMap()
+        self.versions.insert(0,self.root)
         
     def add_version(self,content,time):
         new_version=TreeNode(self.next_version_id,content,self.active)
