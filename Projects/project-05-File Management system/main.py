@@ -52,6 +52,7 @@ while True:
         filename=input("Enter file name:")
         if files[filename]=="Key does not exist":
             tree=Tree()
+            tree.last_modified=int(datetime.now().timestamp())
             files.insert(filename,tree)
         else:
             print("Error:file aldredy exists")
