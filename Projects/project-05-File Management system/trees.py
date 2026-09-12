@@ -1,5 +1,7 @@
 from linkedlist import linked_list
 from Stack import stack
+from hashmap import Hashmap
+
 class TreeNode:
     def __init__(self,version_id,content,parent=None):
         self.version_id=version_id
