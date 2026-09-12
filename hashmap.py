@@ -1,4 +1,4 @@
-from linkedlist import LinkedList
+from linkedlist import linked_list
 
 class HashMap:
     def __init__(self):
@@ -34,9 +34,9 @@ class HashMap:
 
     def insert(self,key,value):
         index=self.__compress(self.__hashKey(key))
-        node=self.buckets[index].findNode(key)
+        node=self.buckets[index].find(key)
         if node is not None:
-            node.val=value
+            node.value=value
             return
         if 4*self.n_of_elements>=3*self.bucketSize:
             old_buckets=self.buckets
@@ -47,11 +47,11 @@ class HashMap:
                 temp=chain.returnhead()
                 while temp is not None:
                     newidx=self.__compress(self.__hashKey(temp.key))
-                    self.buckets[newidx].addHead(temp.key,temp.val)
+                    self.buckets[newidx].add(temp.key,temp.value)
                     self.n_of_elements+=1
                     temp=temp.next
             index=self.__compress(self.__hashKey(key))
-        self.buckets[index].addHead(key,value)
+        self.buckets[index].add(key,value)
         self.n_of_elements+=1
 
     def erase(self,key):
