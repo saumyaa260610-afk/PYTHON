@@ -2,6 +2,7 @@ import heapq
 from Stack import stack
 from hashmap import HashMap
 from trees import Tree
+from datetime import datetime
 
 def recentfiles(files,num):
     heap=[]
@@ -74,14 +75,14 @@ while True:
             tree.insert(content,timestamp)
 
     elif choice == 4:
-    filename=input("Enter file name:")
-    tree=files[filename]
-    if tree=="Key does not exist":
-        print("Error:file does not exist")
-    else:
-        content=input("Enter new content:")
-        timestamp=int(datetime.now().timestamp())
-        tree.update(content,timestamp)
+        filename=input("Enter file name:")
+        tree=files[filename]
+        if tree=="Key does not exist":
+            print("Error:file does not exist")
+        else:
+            content=input("Enter new content:")
+            timestamp=int(datetime.now().timestamp())
+            tree.update(content,timestamp)
 
     elif choice==5:
         filename=input("Enter file name:")
