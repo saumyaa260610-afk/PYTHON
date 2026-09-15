@@ -1,11 +1,11 @@
-from linkedlist import linked_list
+from linked_list import linked_list
 
 class HashMap:
     def __init__(self):
         self.initial_bucket_size=10
         self.bucketSize=self.initial_bucket_size
         self.n_of_elements=0
-        self.buckets=[LinkedList() for _ in range(self.bucketSize)]
+        self.buckets=[linked_list() for _ in range(self.bucketSize)]
         
     def __hashKey(self,key):
         if isinstance(key,str):
@@ -26,9 +26,9 @@ class HashMap:
    
     def __getitem__(self,key):
         index=self.__compress(self.__hashKey(key))
-        node=self.buckets[index].find(key)
-        if node is not None:
-            return node.value
+        value=self.buckets[index].find(key)
+        if value is not None:
+            return value
         else:
             return "Key does not exist"
 
@@ -41,7 +41,7 @@ class HashMap:
         if 4*self.n_of_elements>=3*self.bucketSize:
             old_buckets=self.buckets
             self.bucketSize=self.bucketSize*2
-            self.buckets=[LinkedList() for _ in range(self.bucketSize)]
+            self.buckets=[linked_list() for _ in range(self.bucketSize)]
             self.n_of_elements=0
             for chain in old_buckets:
                 temp=chain.returnhead()
