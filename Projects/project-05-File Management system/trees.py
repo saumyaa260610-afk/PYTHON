@@ -1,6 +1,6 @@
-from linkedlist import linked_list
+from linked_list import linked_list
 from Stack import stack
-from hashmap import Hashmap
+from hashmap import HashMap
 
 class TreeNode:
     def __init__(self,version_id,content,parent=None):
