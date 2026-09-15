@@ -1,8 +1,8 @@
 import heapq
 from Stack import stack
-from hashmap import HashMap
 from trees import Tree
 from datetime import datetime
+from hashmap import HashMap
 
 def recentfiles(files,num):
     heap=[]
@@ -90,10 +90,14 @@ while True:
         tree=files[filename]
         if tree=="Key does not exist":
             print("Error:file does not exist")
+            
         else:
             message=input("Enter snapshot message:")
             timestamp=int(datetime.now().timestamp())
-            tree.snapshot(message,timestamp)
+            if tree.snapshot(message,timestamp)==False:
+                print("Error: Active version is already a snapshot.")
+            else:
+                tree.snapshot(message,timestamp)
     
     elif choice==6:
        filename=input("Enter file name:")
@@ -125,15 +129,23 @@ while True:
             tree.history()
     
     elif choice==8:
-        num=int(input("Enter number of files:"))
-        recentfiles(files,num)
+        num=input("Enter number of files:")
+        if num.isdigit():
+            num=int(num)
+            recentfiles(files,num)
+        else:
+            print("Error:Please enter a valid number")
     
     elif choice==9:
-        num=int(input("Enter number of files:"))
-        biggesttrees(files,num)
+        num=input("Enter number of files:")
+        if num.isdigit():
+            num=int(num)
+            biggesttrees(files,num)
+        else:
+            print("Error:Please enter a valid number")
     
     elif choice==10:
-        print("Exiting...")
+        print("Exited")
         break
     
     else:
