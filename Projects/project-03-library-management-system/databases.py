@@ -15,5 +15,35 @@ create_table(table_members)
 table_payments="""CREATE TABLE IF NOT EXISTS payments(payment_id INT PRIMARY KEY ,user_id INT,amount DECIMAL(10,2),payment_date DATE)"""
 create_table(table_payments)
 
-table_reserve="""CREATE TABLE IF NOT EXISTS reservations(reserve_id INT PRIMARY KEY ,user_id INT,book_id INT,reserve_date DATE)"""
+table_reserve="""CREATE TABLE IF NOT EXISTS reserve(reserve_id INT PRIMARY KEY ,user_id INT,book_id INT,reserve_date DATE)"""
 create_table(table_reserve)
+
+def add_book(book_id,title,author,year,status):
+    query="""INSERT INTO books(book_id,title,author,year,status) VALUES (%s,%s,%s,%s,%s)"""
+    cur.execute(query,(book_id,title,author,year,status))
+    dbs.commit()
+
+def remove_book(book_id):
+    query="DELETE FROM books WHERE book_id=%s"
+    cur.execute(query,(book_id,))
+    dbs.commit()
+
+def add_member(user_id,name,password,role,fine):
+    query="""INSERT INTO members(user_id, name, password, role, fine) VALUES (%s,%s,%s,%s,%s)"""
+    cur.execute(query,(user_id,name,password,role,fine))
+    dbs.commit()
+
+def remove_member(user_id):
+    query="DELETE FROM members WHERE user_id=%s"
+    cur.execute(query,(user_id))
+    dbs.commit()
+
+def update_book(book_id,title,author,year):
+    query="""UPDATE books SET title=%s,author=%s,year=%s WHERE book_id=%s"""
+    cur.execute(query,(title,author,year,book_id))
+    dbs.commit()
+
+def update_member(user_id,name,password,role,fine):
+    query="""UPDATE members SET name=%s,password=%s,role=%s,fine=%s WHERE user_id=%s"""
+    cur.execute(query,(name,password,role,fine,user_id))
+    dbs.commit()
