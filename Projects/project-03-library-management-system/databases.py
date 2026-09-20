@@ -88,3 +88,9 @@ def reserve_book(book_id,user_id,reserve_date):
     cur.execute(query,(reserve_id,user_id,book_id,reserve_date))
     dbs.commit()
 
+def pay_fine(user_id,payment,remaining_fine):
+    query="""INSERT INTO payments(user_id,payment,remaining_fine) VALUES (%s,%s)"""
+    query="UPDATE members SET fine=%s WHERE user_id=%s"
+    cur.execute(query,(remaining_fine,user_id))
+    dbs.commit()
+
