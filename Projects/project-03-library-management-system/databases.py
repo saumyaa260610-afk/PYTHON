@@ -12,10 +12,10 @@ create_table(table_books)
 table_members="""CREATE TABLE IF NOT EXISTS members(user_id INT PRIMARY KEY,name VARCHAR(100),password VARCHAR(100),role VARCHAR(20),fine DECIMAL(10,2))"""
 create_table(table_members)
 
-table_payments="""CREATE TABLE IF NOT EXISTS payments(payment_id INT PRIMARY KEY ,user_id INT,amount DECIMAL(10,2),payment_date DATE)"""
+table_payments="""CREATE TABLE IF NOT EXISTS payments(payment_id INT PRIMARY KEY AUTO_INCREMENT,user_id INT,amount DECIMAL(10,2),payment_date DATE)"""
 create_table(table_payments)
 
-table_reserve="""CREATE TABLE IF NOT EXISTS reserve(reserve_id INT PRIMARY KEY ,user_id INT,book_id INT,reserve_date DATE)"""
+table_reserve="""CREATE TABLE IF NOT EXISTS reserve(reserve_id INT PRIMARY KEY AUTO_INCREMENT,user_id INT,book_id INT,reserve_date DATE)"""
 create_table(table_reserve)
 
 def add_book(book_id,title,author,year,status):
@@ -75,12 +75,12 @@ def get_book_title(title):
 
 def borrow_book(book_id,user_id,borrow_date,return_by):
     query="""UPDATE books SET status=%s,borrowed_by=%s,borrow_date=%s,return_by=%s WHERE book_id=%s"""
-    cur.execute(query,(status,user_id,borrow_date,return_by,book_id))
+    cur.execute(query,("Borrowed",user_id,borrow_date,return_by,book_id))
     dbs.commit()
 
 def return_book(book_id):
     query="""UPDATE books SET status=%s,borrowed_by=%s,borrow_date=%s,return_by=%s WHERE book_id=%s"""
-    cur.execute(query,(status,borrowed_by,borrow_date,return_by,book_id))
+    cur.execute(query,("Available",None,None,None,book_id))
     dbs.commit()
 
 def reserve_book(book_id,user_id,reserve_date):
