@@ -2,9 +2,9 @@ from book import Book
 from student import Student 
 from faculty import Faculty
 from librarian import Librarian
-import json 
 from datetime import date,timedelta
 from databases import *
+
 class Library:
     def __init__(self):
         self.books={}
@@ -169,46 +169,3 @@ class Library:
                     pay_fine(user_id,payment,date.today(),member.fine)
         else:
             print("No fine")
-        
-    def save(self):
-        all_data={}
-        all_data["books"]={}
-        all_data["members"]={}
-        for book_id,book in self.books.items():
-            all_data["books"][book_id] = {"title":book.title,"author":book.author,"year":book.year,"status":book.status,"borrowed_by":book.borrowed_by,"borrow_date":book.borrow_date,"return_by":book.return_by,"reserved_by": book.reserved_by}
-        for user_id,member in self.members.items():
-            all_data["members"][user_id]={"name":member.name,"password":member.password,"role": member.role,"borrowed_books":member.borrowed_books,"reserved_books":member.reserved_books,"fine": member.fine}
-        with open("library.json", "w") as f:
-            json.dump(all_data,f,indent=4)
-            print("Data saved")
-            
-    def load(self):
-        with open("library.json","r") as f:
-            all_data=json.load(f)
-        for book_id,book_data in all_data["books"].items():
-            book_id=int(book_id)
-            book=Book(book_data["title"],book_data["author"],book_data["year"],book_id)
-            book.status=book_data["status"]
-            book.borrowed_by=book_data["borrowed_by"]
-            book.borrow_date=book_data["borrow_date"]
-            book.return_by=book_data["return_by"]
-            book.reserved_by=book_data["reserved_by"]
-            self.books[book_id] = book
-            self.book_titles[book.title.lower()] = book
-        for user_id,member_data in all_data["members"].items():
-            user_id=int(user_id)
-            if member_data["role"]=="Student":
-                member=Student(user_id,member_data["name"],member_data["password"])
-            elif member_data["role"]=="Faculty":
-                member=Faculty(user_id,member_data["name"],member_data["password"])
-            else:
-                member=Librarian(user_id,member_data["name"],member_data["password"])
-            member.borrowed_books=member_data["borrowed_books"]
-            member.reserved_books=member_data["reserved_books"]
-            member.fine=member_data["fine"]
-            self.members[user_id]=member
-        if self.members:
-            self.member_count=max(self.members.keys())
-        if self.books:
-            self.book_count=max(self.books.keys())
-        print("Data loaded")
