@@ -4,6 +4,7 @@ from faculty import Faculty
 from librarian import Librarian
 import json 
 from datetime import date,timedelta
+from databases import *
 class Library:
     def __init__(self):
         self.books={}
@@ -32,7 +33,8 @@ class Library:
             self.book_titles[title.lower()]=new_book
             print("Book added successfully")
             print("Book ID:",book_id)
-            
+            add_book(book_id,title,author,year,new_book.status)
+        
     def remove_book(self,book_id):
         if book_id not in self.books:
             print("Book not found")
@@ -41,6 +43,7 @@ class Library:
         else:
             del self.books[book_id]
             print("Book removed successfully")
+            remove_book(book_id)
 
     def search_book_id(self,book_id):
         if book_id in self.books:
@@ -76,6 +79,7 @@ class Library:
             book.borrow_date=date.today()
             book.return_by=date.today()+timedelta(days=member.loan_days)
             print("Book borrowed successfully")
+            borrow_book(book_id,user_id,book.borrow_date,book.return_by)
             
     def return_book(self,user_id,book_id):
         if book_id not in self.books:
@@ -98,6 +102,7 @@ class Library:
         book.borrow_date=""
         book.return_by=""
         print("Book returned successfully")
+        return_book(book_id)
 
     def reserve_book(self,user_id,book_id):
         if book_id not in self.books:
@@ -111,6 +116,7 @@ class Library:
         book.reserved_by=user_id
         member.reserved_books.append(book_id)
         print("Book reserved successfully")
+        reserve_book(book_id,user_id,date.today())
 
     def add_member(self,role,name,password):
         self.member_count+=1
@@ -126,6 +132,7 @@ class Library:
             return
         self.members[user_id]=member
         print("Member added")
+        add_member(user_id,name,password,member.role,member.fine)
 
     def remove_member(self,user_id):
         if user_id not in self.members:
@@ -133,6 +140,7 @@ class Library:
         else:
             del self.members[user_id]
             print("Member removed successfully")
+            remove_member(user_id)
 
     def search_member(self,user_id):
         if user_id in self.members:
@@ -154,9 +162,11 @@ class Library:
                 elif payment<member.fine:
                     member.fine-=payment
                     print("Remaining fine:",member.fine)
+                    pay_fine(user_id,payment,date.today(),member.fine)
                 else:
                     print("Complete fine paid")
                     member.fine=0
+                    pay_fine(user_id,payment,date.today(),member.fine)
         else:
             print("No fine")
         
