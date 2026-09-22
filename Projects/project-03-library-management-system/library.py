@@ -69,7 +69,7 @@ class Library:
             return
         if member[3]=="Student":
             borrowed_books=0
-            if borrowed_books>=Student.limit_borrow:
+            if count_borrowed_books(user_id)>=Student.limit_borrow:
                 print("Borrowing limit reached")
                 return
             loan_days=Student.loan_days
