@@ -95,3 +95,8 @@ def pay_fine(user_id,payment,remaining_fine):
     query="UPDATE members SET fine=%s WHERE user_id=%s"
     cur.execute(query,(remaining_fine,user_id))
     dbs.commit()
+
+def count_borrowed_books(user_id):
+    query="SELECT COUNT(*) FROM books WHERE borrowed_by=%s"
+    cur.execute(query,(user_id,))
+    return cur.fetchone()[0]
