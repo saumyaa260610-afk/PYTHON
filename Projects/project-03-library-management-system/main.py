@@ -1,6 +1,5 @@
 from library import Library
 library=Library()
-library.load()
 print("WELCOME TO THE LIBRARY!")
 user_id=int(input("Enter User ID:"))
 password=input("Enter Password:")
@@ -75,5 +74,4 @@ if member!=None:
     
         cont=input("Would you like to continue? (yes or no) \n")
         if cont.lower()=="no":
-            library.save()
             break
