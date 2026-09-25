@@ -7,20 +7,28 @@ from databases import *
 
 class Library:
     def __init__(self):
-        self.book_count=100
-        self.member_count=100
+        self.book_count=get_max_book_id()
+        self.member_count=get_max_member_id()
 
     def login(self,user_id,password):
-        member=get_member(user_id)
-        if member:
-            if member[2]==password:
-                print("Login successful")
-                return member
+    member=get_member(user_id)
+    if member:
+        if member[2]==password:
+            if member[3]=="Student":
+                login_member=Student(member[0],member[1],member[2])
+            elif member[3]=="Faculty":
+                login_member=Faculty(member[0],member[1],member[2])
             else:
-                print("Incorrect password")
+                login_member=Librarian(member[0],member[1],member[2])
+            login_member.fine=member[4]
+            print("Login successful")
+            return login_member
         else:
-            print("Invalid userID")
-        return None
+            print("Incorrect password")
+    else:
+        print("Invalid userID")
+
+    return None
 
     def add_book(self,title,author,year):
         self.book_count+=1
@@ -61,6 +69,9 @@ class Library:
     def borrow_book(self,user_id,book_id):
         book=get_book(book_id)
         member=get_member(user_id)
+        if member==None:
+            print("Invalid userID")
+            return
         if book==None:
             print("Book not found")
             return
@@ -86,6 +97,9 @@ class Library:
     def return_book(self,user_id,book_id):
         book=get_book(book_id)
         member=get_member(user_id)
+        if member==None:
+            print("Invalid user ID")
+            return
         if book==None:
             print("Book not found")
             return
@@ -111,7 +125,8 @@ class Library:
             print("Book is already reserved")
             return
         reserve_book(book_id,user_id,date.today())
-        print("Book reserved successfully")
+        update_reservation(book_id,user_id)
+        print("Book reserved")
 
     def add_member(self,role,name,password):
         self.member_count+=1
@@ -175,18 +190,4 @@ class Library:
             pay_fine(user_id,payment,0)
             print("Complete fine paid")
                 
-    def get_max_book_id():
-        query="SELECT MAX(book_id) FROM books"
-        cur.execute(query)
-        result=cur.fetchone()[0]
-        if result==None:
-            return 100
-        return result
-    
-    def get_max_member_id():
-        query="SELECT MAX(user_id) FROM members"
-        cur.execute(query)
-        result=cur.fetchone()[0]
-        if result==None:
-            return 100
-        return result
+   
