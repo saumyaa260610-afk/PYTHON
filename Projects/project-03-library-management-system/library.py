@@ -174,4 +174,19 @@ class Library:
         else:
             pay_fine(user_id,payment,0)
             print("Complete fine paid")
-            
+                
+    def get_max_book_id():
+        query="SELECT MAX(book_id) FROM books"
+        cur.execute(query)
+        result=cur.fetchone()[0]
+        if result==None:
+            return 100
+        return result
+    
+    def get_max_member_id():
+        query="SELECT MAX(user_id) FROM members"
+        cur.execute(query)
+        result=cur.fetchone()[0]
+        if result==None:
+            return 100
+        return result
