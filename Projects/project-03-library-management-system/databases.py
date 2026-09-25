@@ -80,8 +80,8 @@ def borrow_book(book_id,user_id,borrow_date,return_by):
     dbs.commit()
 
 def return_book(book_id):
-    query="""UPDATE books SET status=%s,borrowed_by=%s,borrow_date=%s,return_by=%s WHERE book_id=%s"""
-    cur.execute(query,("Available",None,None,None,book_id))
+    query="""UPDATE books SET status=%s,borrowed_by=%s,borrow_date=%s,return_by=%s,reserved_by=%s WHERE book_id=%s"""
+    cur.execute(query,("Available",None,None,None,None,book_id))
     dbs.commit()
 
 def reserve_book(book_id,user_id,reserve_date):
@@ -100,3 +100,24 @@ def count_borrowed_books(user_id):
     query="SELECT COUNT(*) FROM books WHERE borrowed_by=%s"
     cur.execute(query,(user_id,))
     return cur.fetchone()[0]
+
+ def get_max_book_id():
+    query="SELECT MAX(book_id) FROM books"
+    cur.execute(query)
+    result=cur.fetchone()[0]
+    if result==None:
+        return 100
+    return result
+    
+def get_max_member_id():
+    query="SELECT MAX(user_id) FROM members"
+    cur.execute(query)
+    result=cur.fetchone()[0]
+    if result==None:
+        return 100
+    return result
+
+def update_reservation(book_id,user_id):
+    query="UPDATE books SET reserved_by=%s WHERE book_id=%s"
+    cur.execute(query,(user_id,book_id))
+    dbs.commit()
