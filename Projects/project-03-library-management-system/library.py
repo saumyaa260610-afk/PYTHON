@@ -64,6 +64,9 @@ class Library:
 
     def display_books(self):
         books=get_all_books()
+        if books==None:
+            print("No books to display")
+            return
         for book in books:
             print(book)
 
@@ -118,7 +121,11 @@ class Library:
         print("Book returned successfully")
         
     def reserve_book(self,user_id,book_id):
+        member=get_member(user_id)
         book=get_book(book_id)
+        if member==None:
+            print("Member not found")
+            return
         if book==None:
             print("Book not found")
             return
@@ -165,9 +172,12 @@ class Library:
 
     def display_members(self):
         members=get_all_members()
+        if not members:
+            print("No members")
+            return
         for member in members:
             print(member)
-
+        
     def pay_fine(self,user_id):
         member=get_member(user_id)
         if member==None:
@@ -181,6 +191,8 @@ class Library:
             return
         print("Fine:",member[4])
         payment=float(input("Enter amount to pay:"))
+        if payment<=0:
+            print("Payment cannot be negative")
         if payment>member[4]:
             print("Payment amount is greater than fine.")
         elif payment<member[4]:
