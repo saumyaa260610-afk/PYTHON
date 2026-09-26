@@ -11,25 +11,25 @@ class Library:
         self.member_count=get_max_member_id()
 
     def login(self,user_id,password):
-    member=get_member(user_id)
-    if member==None:
-        print("Member not found")
-    else:
-        if member[2]==password:
-            if member[3]=="Student":
-                login_member=Student(member[0],member[1],member[2])
-            elif member[3]=="Faculty":
-                login_member=Faculty(member[0],member[1],member[2])
-            else:
-                login_member=Librarian(member[0],member[1],member[2])
-            login_member.fine=member[4]
-            print("Login successful")
-            return login_member
+        member=get_member(user_id)
+        if member==None:
+            print("Member not found")
         else:
-            print("Incorrect password")
-    else:
-        print("Invalid userID")
-    return None
+            if member[2]==password:
+                if member[3]=="Student":
+                    login_member=Student(member[0],member[1],member[2])
+                elif member[3]=="Faculty":
+                    login_member=Faculty(member[0],member[1],member[2])
+                else:
+                    login_member=Librarian(member[0],member[1],member[2])
+                login_member.fine=member[4]
+                print("Login successful")
+                return login_member
+            else:
+                print("Incorrect password")
+        else:
+            print("Invalid userID")
+        return None
 
     def add_book(self,title,author,year):
         self.book_count+=1
