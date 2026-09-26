@@ -87,6 +87,8 @@ def return_book(book_id):
 def reserve_book(book_id,user_id,reserve_date):
     query="""INSERT INTO reserve(user_id,book_id,reserve_date) VALUES(%s,%s,%s)"""
     cur.execute(query,(user_id,book_id,reserve_date))
+    query="UPDATE books SET reserved_by=%s WHERE book_id=%s"
+    cur.execute(query,(user_id,book_id))
     dbs.commit()
 
 def pay_fine(user_id,payment,remaining_fine):
