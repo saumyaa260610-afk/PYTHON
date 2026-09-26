@@ -6,7 +6,7 @@ password=input("Enter Password:")
 member=library.login(user_id,password)
 if member!=None:
     while True:
-        if member.role=="Student" or member.role=="Faculty":
+        if member[3]=="Student" or member[3]=="Faculty":
             print(f'''{member.role.upper()} MENU:\n1.Borrow Book\n2.Return Book\n3.Reserve Book\n4.Search Book\n5.Account Summary\n6.Fine payment\n7.Logout''')
             choice=int(input("Enter choice:"))
             if choice==1:
@@ -33,7 +33,7 @@ if member!=None:
             elif choice==7:
                 print("Logged out")
                 
-        elif member.role=="Librarian":
+        elif member[3]=="Librarian":
             print('''LIBRARIAN MENU:\n1.Add Book\n2.Remove Book\n3.Display Books\n4.Add Member\n5.Remove Member\n6.Search Member\n7.Search Books\n8.Logout''')
             choice=int(input("Enter choice:"))
             if choice==1:
