@@ -12,7 +12,9 @@ class Library:
 
     def login(self,user_id,password):
     member=get_member(user_id)
-    if member:
+    if member==None:
+        print("Member not found")
+    else:
         if member[2]==password:
             if member[3]=="Student":
                 login_member=Student(member[0],member[1],member[2])
@@ -27,7 +29,6 @@ class Library:
             print("Incorrect password")
     else:
         print("Invalid userID")
-
     return None
 
     def add_book(self,title,author,year):
