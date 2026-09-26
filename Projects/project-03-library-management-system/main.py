@@ -7,8 +7,8 @@ member=library.login(user_id,password)
 if member!=None:
     while True:
         if member[3]=="Student" or member[3]=="Faculty":
-            print(f'''{member.role.upper()} MENU:\n1.Borrow Book\n2.Return Book\n3.Reserve Book\n4.Search Book\n5.Account Summary\n6.Fine payment\n7.Logout''')
-            choice=int(input("Enter choice:"))
+            print(f'''{member.role.upper()} MENU:\n1.Borrow Book\n2.Return Book\n3.Reserve Book\n4.Search Book\n5.Fine payment\n6.Logout''')
+            choice=input("Enter choice:")
             if choice==1:
                 book_id=int(input("Enter Book ID:"))
                 library.borrow_book(user_id,book_id)
@@ -27,15 +27,15 @@ if member!=None:
                     title=input("Enter book title:")
                     library.search_book_title(title)
             elif choice==5:
-                member.account_summary()
-            elif choice==6:
                 library.pay_fine(user_id)
-            elif choice==7:
+            elif choice==6:
                 print("Logged out")
+            else:
+                print("Invalid choice")
                 
         elif member[3]=="Librarian":
             print('''LIBRARIAN MENU:\n1.Add Book\n2.Remove Book\n3.Display Books\n4.Add Member\n5.Remove Member\n6.Search Member\n7.Search Books\n8.Logout''')
-            choice=int(input("Enter choice:"))
+            choice=input("Enter choice:")
             if choice==1:
                 title=input("Enter book title:")
                 author=input("Enter Author name:")
@@ -67,11 +67,9 @@ if member!=None:
                     library.search_book_title(title)
             elif choice==8:
                 print("Logged Out")
-        elif choice==2:
-            print("Exited the Library")
-        else:
-            print("Invalid choice")
-    
+            else:
+                print("Invalid choice")
+
         cont=input("Would you like to continue? (yes or no) \n")
         if cont.lower()=="no":
             break
